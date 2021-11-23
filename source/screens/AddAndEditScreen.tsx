@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { SafeAreaView, StyleSheet, Text, TextInput, View } from "react-native";
+import { SafeAreaView, StyleSheet, TextInput, View } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { v4 as uuid_v4 } from "uuid";
@@ -15,9 +15,12 @@ interface IAddAndEditScreen
 const AddAndEditScreen: React.FC<IAddAndEditScreen> = (props) => {
   const context = useContext(ProductContext);
 
+  const [productList, setProductList] = useState<Product[]>([]);
   const [selectedType, setSelectedType] = useState("");
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
+  const [validPrice, setValidPrice] = useState(false);
+  const [validName, setValidName] = useState(false);
 
   useEffect(() => {
     if (props.route.params?.product) {
@@ -25,7 +28,30 @@ const AddAndEditScreen: React.FC<IAddAndEditScreen> = (props) => {
       setPrice(props.route.params.product.price);
       setSelectedType(props.route.params.product.type);
     }
+    setProductList(context!.productList);
   }, []);
+
+  useEffect(() => {
+    if (selectedType == "Integrated") {
+      if (parseInt(price) >= 1000 && parseInt(price) <= 2600) {
+        setValidPrice(true);
+      } else {
+        setValidPrice(false);
+      }
+    } else if (selectedType == "Peripheral") {
+      if (parseInt(price) > 0) {
+        setValidPrice(true);
+      } else {
+        setValidPrice(false);
+      }
+    }
+  }, [price, selectedType]);
+
+  //   useEffect(() => {
+  //       if (name != "") {
+
+  //       }
+  //   }, [name])
 
   const handleAddProduct = () => {
     let newProduct: Product = {
@@ -95,7 +121,12 @@ const AddAndEditScreen: React.FC<IAddAndEditScreen> = (props) => {
                 icon="download"
                 bgColor="#008700"
                 labelColor="#fff"
-                disabled={name == "" || price == "" || selectedType == ""}
+                disabled={
+                  name == "" ||
+                  price == "" ||
+                  selectedType == "" ||
+                  validPrice == false
+                }
               />
             </View>
             <View style={styles.btnContainer}>
@@ -159,7 +190,12 @@ const AddAndEditScreen: React.FC<IAddAndEditScreen> = (props) => {
                 icon="download"
                 bgColor="#008700"
                 labelColor="#fff"
-                disabled={name == "" || price == "" || selectedType == ""}
+                disabled={
+                  name == "" ||
+                  price == "" ||
+                  selectedType == "" ||
+                  validPrice == false
+                }
               />
             </View>
             <View style={styles.btnContainer}>
