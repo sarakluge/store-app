@@ -32,26 +32,36 @@ const AddAndEditScreen: React.FC<IAddAndEditScreen> = (props) => {
   }, []);
 
   useEffect(() => {
-    if (selectedType == "Integrated") {
-      if (parseInt(price) >= 1000 && parseInt(price) <= 2600) {
-        setValidPrice(true);
-      } else {
-        setValidPrice(false);
+    if (price != "") {
+      if (selectedType == "Integrated") {
+        if (parseInt(price) >= 1000 && parseInt(price) <= 2600) {
+          setValidPrice(true);
+        } else {
+          setValidPrice(false);
+        }
+      } else if (selectedType == "Peripheral") {
+        if (parseInt(price) > 0) {
+          setValidPrice(true);
+        } else {
+          setValidPrice(false);
+        }
       }
-    } else if (selectedType == "Peripheral") {
-      if (parseInt(price) > 0) {
-        setValidPrice(true);
-      } else {
-        setValidPrice(false);
-      }
+    } else {
+      setValidPrice(false);
     }
   }, [price, selectedType]);
 
-  //   useEffect(() => {
-  //       if (name != "") {
-
-  //       }
-  //   }, [name])
+  useEffect(() => {
+    if (name != "") {
+      if (productList.find((product) => product.name === name)) {
+        setValidName(false);
+      } else {
+        setValidName(true);
+      }
+    } else {
+      setValidName(false);
+    }
+  }, [name]);
 
   const handleAddProduct = () => {
     let newProduct: Product = {
@@ -122,10 +132,9 @@ const AddAndEditScreen: React.FC<IAddAndEditScreen> = (props) => {
                 bgColor="#008700"
                 labelColor="#fff"
                 disabled={
-                  name == "" ||
-                  price == "" ||
                   selectedType == "" ||
-                  validPrice == false
+                  validPrice == false ||
+                  validName == false
                 }
               />
             </View>
@@ -191,10 +200,9 @@ const AddAndEditScreen: React.FC<IAddAndEditScreen> = (props) => {
                 bgColor="#008700"
                 labelColor="#fff"
                 disabled={
-                  name == "" ||
-                  price == "" ||
                   selectedType == "" ||
-                  validPrice == false
+                  validPrice == false ||
+                  validName == false
                 }
               />
             </View>
