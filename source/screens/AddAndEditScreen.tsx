@@ -54,14 +54,18 @@ const AddAndEditScreen: React.FC<IAddAndEditScreen> = (props) => {
   }, [price, selectedType]);
 
   useEffect(() => {
-    if (name != "") {
-      if (productList.find((product) => product.name === name)) {
-        setValidName(false);
+    if (props.route.params?.product == undefined) {
+      if (name != "") {
+        if (productList.find((product) => product.name === name)) {
+          setValidName(false);
+        } else {
+          setValidName(true);
+        }
       } else {
-        setValidName(true);
+        setValidName(false);
       }
     } else {
-      setValidName(false);
+      setValidName(true);
     }
   }, [name]);
 
