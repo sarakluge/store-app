@@ -1,12 +1,20 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { tokens } from "../helpers/translation/appStructure";
+import { translate } from "../helpers/translation/translation";
 
 const ListTable: React.FC = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.leftItem}>Name</Text>
-      <Text style={styles.centerItem}>Type</Text>
-      <Text style={styles.rightItem}>Price</Text>
+      <Text style={styles.leftItem}>
+        {translate(tokens.screens.productListScreen.NameLabel)}
+      </Text>
+      <Text style={styles.centerItem}>
+        {translate(tokens.screens.productListScreen.TypeLabel)}
+      </Text>
+      <Text style={styles.rightItem}>
+        {translate(tokens.screens.productListScreen.PriceLabel)}
+      </Text>
     </View>
   );
 };

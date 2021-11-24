@@ -1,36 +1,40 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useEffect } from "react";
+import { StyleSheet } from "react-native";
 import ProductListScreen from "./source/screens/ProductListScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StackScreens } from "./source/helpers/types";
 import AddAndEditScreen from "./source/screens/AddAndEditScreen";
-import {
-  ProductContext,
-  ProductProvider,
-} from "./source/context/ProductContext";
+import { ProductProvider } from "./source/context/ProductContext";
+import { setI18Config } from "./source/helpers/translation/translation";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 const Stack = createNativeStackNavigator<StackScreens>();
 
 export default function App() {
+  useEffect(() => {
+    setI18Config();
+  }, []);
   return (
-    <ProductProvider>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="ProductListScreen">
-          <Stack.Screen
-            name="ProductListScreen"
-            component={ProductListScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="AddAndEditScreen"
-            component={AddAndEditScreen}
-            options={{ headerShown: false }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </ProductProvider>
+    <SafeAreaProvider>
+      <ProductProvider>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="ProductListScreen">
+            <Stack.Screen
+              name="ProductListScreen"
+              component={ProductListScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="AddAndEditScreen"
+              component={AddAndEditScreen}
+              options={{ headerShown: false }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </ProductProvider>
+    </SafeAreaProvider>
   );
 }
 

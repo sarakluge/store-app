@@ -8,6 +8,8 @@ import { Product } from "../helpers/types";
 import { ProductContext } from "../context/ProductContext";
 import IconButton from "../components/IconButton";
 import Header from "../components/Header";
+import { translate } from "../helpers/translation/translation";
+import { tokens } from "../helpers/translation/appStructure";
 
 interface IAddAndEditScreen
   extends NativeStackScreenProps<StackScreens, "AddAndEditScreen"> {}
@@ -94,7 +96,7 @@ const AddAndEditScreen: React.FC<IAddAndEditScreen> = (props) => {
       {props.route.params?.product ? (
         <>
           <Header
-            text="Edit Product"
+            text={translate(tokens.screens.addAndEditScreen.EditHeader)}
             bgColor="#ebf0ee"
             bold={true}
             fontSize={25}
@@ -102,13 +104,17 @@ const AddAndEditScreen: React.FC<IAddAndEditScreen> = (props) => {
           />
           <TextInput
             style={styles.input}
-            placeholder="Name"
+            placeholder={translate(
+              tokens.screens.addAndEditScreen.NamePlaceholder
+            )}
             value={name}
             onChangeText={(value) => setName(value)}
           />
           <TextInput
             style={styles.input}
-            placeholder="Price"
+            placeholder={translate(
+              tokens.screens.addAndEditScreen.PricePlaceholder
+            )}
             keyboardType="decimal-pad"
             value={price}
             onChangeText={(value) => setPrice(value)}
@@ -119,14 +125,23 @@ const AddAndEditScreen: React.FC<IAddAndEditScreen> = (props) => {
             onValueChange={(itemValue, itemIndex) => setSelectedType(itemValue)}
             itemStyle={styles.pickerItem}
           >
-            <Picker.Item label="Choose a Product Type" value="" />
-            <Picker.Item label="Peripheral" value="Peripheral" />
-            <Picker.Item label="Integrated" value="Integrated" />
+            <Picker.Item
+              label={translate(tokens.screens.addAndEditScreen.TypeTitle)}
+              value=""
+            />
+            <Picker.Item
+              label={translate(tokens.screens.addAndEditScreen.Peripheral)}
+              value="Peripheral"
+            />
+            <Picker.Item
+              label={translate(tokens.screens.addAndEditScreen.Integrated)}
+              value="Integrated"
+            />
           </Picker>
           <View style={styles.btnRow}>
             <View style={styles.btnContainer}>
               <IconButton
-                label="save"
+                label={translate(tokens.screens.addAndEditScreen.SaveBtnLabel)}
                 onPress={() => handleEditProduct()}
                 icon="download"
                 bgColor="#008700"
@@ -140,7 +155,9 @@ const AddAndEditScreen: React.FC<IAddAndEditScreen> = (props) => {
             </View>
             <View style={styles.btnContainer}>
               <IconButton
-                label="cancel"
+                label={translate(
+                  tokens.screens.addAndEditScreen.CancelBtnLabel
+                )}
                 onPress={() => props.navigation.navigate("ProductListScreen")}
                 icon="cancel"
                 bgColor="#ebf0ee"
@@ -151,7 +168,7 @@ const AddAndEditScreen: React.FC<IAddAndEditScreen> = (props) => {
           </View>
           <View style={styles.btnRow}>
             <IconButton
-              label="delete"
+              label={translate(tokens.screens.addAndEditScreen.DeleteBtnLabel)}
               onPress={() => handleDeleteProduct()}
               icon="delete"
               bgColor="red"
@@ -162,7 +179,7 @@ const AddAndEditScreen: React.FC<IAddAndEditScreen> = (props) => {
       ) : (
         <>
           <Header
-            text="Create New Product"
+            text={translate(tokens.screens.addAndEditScreen.AddHeader)}
             bgColor="#ebf0ee"
             bold={true}
             fontSize={25}
@@ -170,13 +187,17 @@ const AddAndEditScreen: React.FC<IAddAndEditScreen> = (props) => {
           />
           <TextInput
             style={styles.input}
-            placeholder="Name"
+            placeholder={translate(
+              tokens.screens.addAndEditScreen.NamePlaceholder
+            )}
             value={name}
             onChangeText={(value) => setName(value)}
           />
           <TextInput
             style={styles.input}
-            placeholder="Price"
+            placeholder={translate(
+              tokens.screens.addAndEditScreen.PricePlaceholder
+            )}
             keyboardType="decimal-pad"
             value={price}
             onChangeText={(value) => setPrice(value)}
@@ -187,14 +208,23 @@ const AddAndEditScreen: React.FC<IAddAndEditScreen> = (props) => {
             onValueChange={(itemValue, itemIndex) => setSelectedType(itemValue)}
             itemStyle={styles.pickerItem}
           >
-            <Picker.Item label="Choose a Product Type" value="" />
-            <Picker.Item label="Peripheral" value="Peripheral" />
-            <Picker.Item label="Integrated" value="Integrated" />
+            <Picker.Item
+              label={translate(tokens.screens.addAndEditScreen.TypeTitle)}
+              value=""
+            />
+            <Picker.Item
+              label={translate(tokens.screens.addAndEditScreen.Peripheral)}
+              value="Peripheral"
+            />
+            <Picker.Item
+              label={translate(tokens.screens.addAndEditScreen.Integrated)}
+              value="Integrated"
+            />
           </Picker>
           <View style={styles.btnRow}>
             <View style={styles.btnContainer}>
               <IconButton
-                label="save"
+                label={translate(tokens.screens.addAndEditScreen.SaveBtnLabel)}
                 onPress={() => handleAddProduct()}
                 icon="download"
                 bgColor="#008700"
@@ -208,7 +238,9 @@ const AddAndEditScreen: React.FC<IAddAndEditScreen> = (props) => {
             </View>
             <View style={styles.btnContainer}>
               <IconButton
-                label="cancel"
+                label={translate(
+                  tokens.screens.addAndEditScreen.CancelBtnLabel
+                )}
                 onPress={() => props.navigation.navigate("ProductListScreen")}
                 icon="cancel"
                 bgColor="#ebf0ee"

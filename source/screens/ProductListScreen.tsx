@@ -8,27 +8,35 @@ import { ProductContext } from "../context/ProductContext";
 import Header from "../components/Header";
 import ListTable from "../components/ListTable";
 import ListItem from "../components/ListItem";
+import { setI18Config } from "../helpers/translation/translation";
+import { tokens } from "../helpers/translation/appStructure";
+import { translate } from "../helpers/translation/translation";
 
 interface IProductListScreen
   extends NativeStackScreenProps<StackScreens, "ProductListScreen"> {}
 
 const ProductListScreen: React.FC<IProductListScreen> = (props) => {
+  setI18Config();
   const context = useContext(ProductContext);
   const [productList, setProductList] = useState<Product[]>([]);
 
   useEffect(() => {
     setProductList(context!.productList);
+    setI18Config();
   }, [context?.productList]);
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header text="Item" bgColor="#008700" textColor="#fff" />
+      <Header
+        text={translate(tokens.screens.productListScreen.HeaderString)}
+        bgColor="#008700"
+        textColor="#fff"
+      />
       <ListTable />
       {productList && productList?.length <= 0 ? (
         <View style={styles.emptyListWrapper}>
           <Text style={styles.emptyListText}>
-            You do not have any products. Press the green button below to add a
-            new one.
+            {translate(tokens.screens.productListScreen.EmptyListString)}
           </Text>
           <FAB
             style={styles.fab}
